@@ -1,7 +1,3 @@
-<!-- add screenshots/hero.png and uncomment:
-![screenshot](screenshots/hero.png)
--->
-
 ```
  ██████╗ ██╗  ██╗ ██████╗ ███████╗████████╗████████╗██╗   ██╗
 ██╔════╝ ██║  ██║██╔═══██╗██╔════╝╚══██╔══╝╚══██╔══╝╚██╗ ██╔╝
@@ -17,6 +13,10 @@
   <img src="https://img.shields.io/badge/PLATFORM-macOS_•_APPLE_SILICON-00f0ff?style=for-the-badge&labelColor=0b0c10" alt="platform: macOS on Apple Silicon">
   <img src="https://img.shields.io/badge/POWERED_BY-GHOSTTY-ff2e97?style=for-the-badge&labelColor=0b0c10" alt="powered by Ghostty">
   <a href="LICENSE"><img src="https://img.shields.io/badge/LICENSE-MIT-fcee0a?style=for-the-badge&labelColor=0b0c10" alt="MIT license"></a>
+</p>
+
+<p align="center">
+  <img src="screenshots/hero.gif" alt="GHOST//DECK — a Cyberpunk 2077 themed Ghostty terminal" width="800">
 </p>
 
 **A Cyberpunk 2077-style terminal for macOS, built on [Ghostty](https://ghostty.org).** Neon yellow, cyan, and magenta. A live CRT shader that glitches when you least expect it. A scrambled-text decode on every window you open. And every window flies its callsign: `GHOST//DECK`.

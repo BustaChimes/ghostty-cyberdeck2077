@@ -1,0 +1,57 @@
+# ---------- Font ----------
+font-family = FiraCode Nerd Font
+font-style = Retina
+font-size = 14
+font-thicken = true
+adjust-cell-height = 10%
+
+# ---------- Base colors ----------
+background = #0b0c10
+foreground = #e8f4f8
+cursor-color = #fcee0a
+cursor-text = #0b0c10
+cursor-style = block
+cursor-style-blink = true
+selection-background = #fcee0a
+selection-foreground = #0b0c10
+
+# ---------- ANSI palette ----------
+palette = 0=#101116
+palette = 1=#ff003c
+palette = 2=#00ff9c
+palette = 3=#fcee0a
+palette = 4=#00b0ff
+palette = 5=#ff2e97
+palette = 6=#00f0ff
+palette = 7=#d6d6d6
+palette = 8=#3a3d4d
+palette = 9=#ff5370
+palette = 10=#5affc8
+palette = 11=#fff95e
+palette = 12=#52d6ff
+palette = 13=#ff6ec7
+palette = 14=#7df9ff
+palette = 15=#ffffff
+
+# ---------- Window ----------
+background-opacity = 0.92
+background-blur = 20
+window-padding-x = 14
+window-padding-y = 10
+macos-titlebar-style = transparent
+window-theme = dark
+title = Terminal
+
+# ---------- Shader ----------
+custom-shader = ~/.config/ghostty/shaders/cyberpunk.glsl
+custom-shader-animation = true
+
+# ---------- Behavior ----------
+mouse-hide-while-typing = true
+shell-integration = zsh
+
+# ---------- App icon ----------
+# macos-custom-icon needs an ABSOLUTE path (~ does not expand here).
+# install.sh replaces the placeholder below with your real home directory.
+macos-icon = custom
+macos-custom-icon = __HOME__/.config/ghostty/icon.png

@@ -1,0 +1,32 @@
+# Cyberpunk 2077 prompt for Starship
+add_newline = false
+format = """
+[ $directory](bg:#fcee0a fg:#0b0c10)[](fg:#fcee0a bg:#00f0ff)[ $git_branch$git_status](bg:#00f0ff fg:#0b0c10)[](fg:#00f0ff)$fill[](fg:#ff2e97)[$time ](bg:#ff2e97 fg:#0b0c10)
+$character"""
+
+[fill]
+symbol = " "
+
+[directory]
+style = "bg:#fcee0a fg:#0b0c10 bold"
+format = "[$path ]($style)"
+truncation_length = 3
+
+[git_branch]
+symbol = " "
+style = "bg:#00f0ff fg:#0b0c10 bold"
+format = "[$symbol$branch ]($style)"
+
+[git_status]
+style = "bg:#00f0ff fg:#ff003c bold"
+format = "[$all_status$ahead_behind ]($style)"
+
+[time]
+disabled = false
+format = "[$time]($style)"
+time_format = "%H:%M:%S"
+style = "bg:#ff2e97 fg:#0b0c10 bold"
+
+[character]
+success_symbol = "[▶](bold #fcee0a) "
+error_symbol = "[▶](bold #ff003c) "

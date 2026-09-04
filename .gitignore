@@ -2,3 +2,5 @@
 *.bak
 *.bak-*
 *.pre-cyberpunk
+*.pre-cyberpunk.none
+.cyberpunk-zshrc-added

@@ -16,21 +16,30 @@ else
   exit 1
 fi
 
+APP="/Applications/Ghostty.app"
+[[ -d "$APP" ]] || APP="$HOME/Applications/Ghostty.app"
+
 CFG="$HOME/.config/ghostty/config"
 mkdir -p ~/.config/ghostty
 cp "$SRC" ~/.config/ghostty/icon.png
 
 echo "== strip any stale Finder custom icon"
-xattr -d com.apple.FinderInfo /Applications/Ghostty.app 2>/dev/null || true
-rm -f "/Applications/Ghostty.app/Icon"$'\r' 2>/dev/null || true
+xattr -d com.apple.FinderInfo "$APP" 2>/dev/null || true
+rm -f "$APP/Icon"$'\r' 2>/dev/null || true
 
 echo "== point Ghostty at the icon natively"
-sed -i '' '/^macos-icon/d;/^macos-custom-icon/d' "$CFG"
+sed -i '' '/^# ---------- App icon ----------$/d;/^macos-icon/d;/^macos-custom-icon/d' "$CFG"
 printf '\n# ---------- App icon ----------\nmacos-icon = custom\nmacos-custom-icon = %s/.config/ghostty/icon.png\n' "$HOME" >> "$CFG"
 
-echo "== relaunch"
-osascript -e 'quit app "Ghostty"' 2>/dev/null || true
-sleep 1
-killall Dock
-open -a Ghostty
-echo "Done. The Dock icon is the custom one while Ghostty runs; Ghostty re-applies it on every launch."
+if [[ "$TERM_PROGRAM" == ghostty ]]; then
+  # Quitting Ghostty from inside Ghostty would kill this very script.
+  echo "Done. Running inside Ghostty, so skipping the relaunch —"
+  echo "restart Ghostty (or Cmd+Shift+, to reload the config) to apply the icon."
+else
+  echo "== relaunch"
+  osascript -e 'quit app "Ghostty"' 2>/dev/null || true
+  sleep 1
+  killall Dock
+  open -a Ghostty
+  echo "Done. The Dock icon is the custom one while Ghostty runs; Ghostty re-applies it on every launch."
+fi

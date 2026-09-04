@@ -3,7 +3,7 @@
 
 const float SCANLINE_STRENGTH = 0.12;
 const float ABERRATION_PX     = 1.2;    // color fringe in PIXELS (font-size independent)
-const float GLITCH_CHANCE     = 0.08;   // per half-second window (was 0.08)
+const float GLITCH_CHANCE     = 0.08;   // odds of a glitch per half-second window
 const float VIGNETTE          = 0.40;
 const float GRAIN             = 0.015;
 const float INVERT_SHARE      = 0.10;   // fraction of glitches upgraded to mode 6 (invert flash)

@@ -19,7 +19,7 @@
   <a href="LICENSE"><img src="https://img.shields.io/badge/LICENSE-MIT-fcee0a?style=for-the-badge&labelColor=0b0c10" alt="MIT license"></a>
 </p>
 
-**A Cyberpunk 2077-style terminal for macOS, built on [Ghostty](https://ghostty.org).** Neon yellow, cyan, and magenta. A live CRT shader that glitches when you least expect it. A scrambled-text decode on every window you open. And to anyone shoulder-surfing you at the coffee shop — it's just Terminal.app. Nobody has to know.
+**A Cyberpunk 2077-style terminal for macOS, built on [Ghostty](https://ghostty.org).** Neon yellow, cyan, and magenta. A live CRT shader that glitches when you least expect it. A scrambled-text decode on every window you open. And every window flies its callsign: `GHOST//DECK`.
 
 <p align="center">
   <img src="icons/Mono.png" width="128" alt="app icon">
@@ -35,7 +35,7 @@ This is what jacking in looks like:
 > SCANLINES ── ABERRATION ── VIGNETTE ── GRAIN ....... [ OK ]
 > ARMING GLITCH SCHEDULER :: 7 MODES ................. [ OK ]
 > PROMPT UPLINK :: starship ▶ ........................ [ OK ]
-> DISGUISE PROTOCOL :: "Terminal" .................... [ OK ]
+> CALLSIGN REGISTERED :: "GHOST//DECK" ............... [ OK ]
 
 // ACCESS GRANTED :: WELCOME TO NIGHT CITY
 ```
@@ -50,7 +50,7 @@ Every new window opens with a randomized banner that decodes itself out of stati
 - **Starship prompt** — yellow → cyan powerline segments with path and git status, a magenta clock pinned hard to the right edge, and a `▶` cursor that flips red when the last command flatlined.
 - **Themed `ls` colors** — dirs yellow, executables green, media magenta, archives red, docs blue. Uses [eza](https://github.com/eza-community/eza) if you have it, degrades cleanly to stock macOS `ls` if you don't.
 - **ssh that just works** — remote hosts don't know Ghostty's terminfo and will whine about it. A tiny wrapper sends `TERM=xterm-256color` to remotes only; your local TERM stays untouched.
-- **The disguise** — window title reads `Terminal`, and the Dock icon is swapped for one of three original icons (Mono / Window / Hazard) that pass for a stock system utility. Corpo-grade plausible deniability.
+- **The nameplate** — the window titles itself `GHOST//DECK`, and the Dock icon is swapped for one of three original icons (Mono / Window / Hazard). No stock branding — your deck flies its own colors.
 
 ## ▓▓ 03 // RIG REQUIREMENTS ▓▓
 

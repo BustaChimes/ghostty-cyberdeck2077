@@ -40,7 +40,7 @@ window-padding-x = 14
 window-padding-y = 10
 macos-titlebar-style = transparent
 window-theme = dark
-title = Terminal
+title = GHOST//DECK
 
 # ---------- Shader ----------
 custom-shader = ~/.config/ghostty/shaders/cyberpunk.glsl

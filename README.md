@@ -69,8 +69,8 @@ Minimum spec to run this ICE:
 Three commands. Thirty seconds. Copy-paste as-is:
 
 ```sh
-git clone https://github.com/BustaChimes/ghostty-cyberpunk.git
-cd ghostty-cyberpunk
+git clone https://github.com/BustaChimes/ghostty-cyberdeck2077.git
+cd ghostty-cyberdeck2077
 ./install.sh
 ```
 

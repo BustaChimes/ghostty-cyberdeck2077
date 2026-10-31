@@ -2,7 +2,6 @@
 font-family = FiraCode Nerd Font
 font-style = Retina
 font-size = 14
-font-thicken = true
 adjust-cell-height = 10%
 
 # ---------- Base colors ----------
@@ -38,8 +37,6 @@ background-opacity = 0.92
 background-blur = 20
 window-padding-x = 14
 window-padding-y = 10
-macos-titlebar-style = transparent
-macos-titlebar-proxy-icon = hidden
 window-theme = dark
 title = GHOST//DECK
 
@@ -51,8 +48,8 @@ custom-shader-animation = true
 mouse-hide-while-typing = true
 shell-integration = zsh
 
-# ---------- App icon ----------
-# macos-custom-icon needs an ABSOLUTE path (~ does not expand here).
-# install.sh replaces the placeholder below with your real home directory.
-macos-icon = custom
-macos-custom-icon = __HOME__/.config/ghostty/icon.png
+# ---------- Platform ----------
+# OS-specific settings (macOS titlebar + app icon, or Linux keybinds) live in
+# platform.conf next to this file. install.sh copies platform/macos.conf or
+# platform/linux.conf there. Ghostty loads it after this file; "?" = optional.
+config-file = ?platform.conf

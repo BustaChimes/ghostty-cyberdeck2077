@@ -62,6 +62,8 @@ export LS_COLORS=$_cp_ls                 # zsh completion + GNU tools
 if command -v eza >/dev/null; then
   export EZA_COLORS="$_cp_ls:da=34:sn=36:sb=36:uu=37:gu=37"
   alias ls='eza'
+elif ls --version >/dev/null 2>&1; then
+  alias ls='ls --color=auto'             # GNU/Linux ls (reads LS_COLORS above)
 else
   export CLICOLOR=1                      # BSD/macOS ls
   export LSCOLORS='DxGxFxdxCxDxDxCxCxDxDx'   # same scheme, 16-color (maps to palette)

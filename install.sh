@@ -1,12 +1,13 @@
-#!/bin/zsh
+#!/usr/bin/env bash
 # ghostty-cyberpunk installer — idempotent, safe to re-run.
 # macOS (Homebrew) or Linux (Ubuntu/Debian, apt + snap).
+# Plain bash (macOS ships 3.2) so it runs on a fresh box before zsh is installed.
 # Copies configs into place, never touches anything outside:
 #   ~/.config/ghostty/  ~/.config/starship.toml  ~/.zshrc (3 guarded lines)
 #   Linux only: ~/.local/share/fonts/FiraCodeNerdFont/ and one .desktop
 #   launcher in ~/.local/share/applications/ (for the app icon)
 set -e
-HERE="${0:A:h}"
+HERE="$(cd "$(dirname "$0")" && pwd)"
 GC="$HOME/.config/ghostty"
 # ~/.zshrc lines this installer actually appended (so uninstall removes ONLY those)
 MANIFEST="$GC/.cyberpunk-zshrc-added"
@@ -54,6 +55,7 @@ deps_macos() {
     exit 1
   fi
   [[ -d /Applications/Ghostty.app || -d "$HOME/Applications/Ghostty.app" ]] || brew install --cask ghostty
+  # shellcheck disable=SC2010  # font filenames are plain ASCII; unchanged macOS check
   if ! ls ~/Library/Fonts /Library/Fonts 2>/dev/null | grep -qi "FiraCodeNerdFont"; then
     brew install --cask font-fira-code-nerd-font
   fi
@@ -70,10 +72,10 @@ deps_linux() {
   fi
   local -a need=()
   local p
-  for p in curl xz-utils fontconfig desktop-file-utils; do
+  for p in zsh curl xz-utils fontconfig desktop-file-utils; do
     dpkg -s "$p" >/dev/null 2>&1 || need+=("$p")
   done
-  if (( $#need )); then
+  if (( ${#need[@]} )); then
     sudo apt-get update
     sudo apt-get install -y "${need[@]}"
   fi
@@ -125,13 +127,13 @@ deps_linux() {
   local zsh_path login_shell
   zsh_path="$(command -v zsh)"
   login_shell="$(getent passwd "$USER" | cut -d: -f7)"
-  if [[ "${login_shell:t}" != zsh ]]; then
-    if [[ -t 0 ]] && read -q "?   Your login shell is ${login_shell:-unknown}. Switch it to zsh now? [y/N] "; then
-      echo
+  if [[ "${login_shell##*/}" != zsh ]]; then
+    local reply=""
+    [[ -t 0 ]] && read -r -p "   Your login shell is ${login_shell:-unknown}. Switch it to zsh now? [y/N] " reply
+    if [[ "$reply" == [yY]* ]]; then
       chsh -s "$zsh_path"
       echo "   login shell -> $zsh_path (takes effect at your next login)"
     else
-      echo
       echo "   NOTE: the prompt/banner need zsh. Switch later with: chsh -s $zsh_path"
     fi
   fi
@@ -161,6 +163,7 @@ sed -i.tmp "s|__HOME__|$HOME|" "$GC/platform.conf" && rm -f "$GC/platform.conf.t
 
 echo "== 4/5 ~/.zshrc (each line added only if missing)"
 touch ~/.zshrc "$MANIFEST"
+# shellcheck disable=SC2016  # written to ~/.zshrc literally, expands there
 add_zshrc_line 'eval "$(starship init zsh)"'              'starship init zsh'
 add_zshrc_line 'export ZLE_RPROMPT_INDENT=0'              'ZLE_RPROMPT_INDENT'
 add_zshrc_line 'source ~/.config/ghostty/cyberpunk.zsh'   'ghostty/cyberpunk.zsh'

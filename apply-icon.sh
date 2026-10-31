@@ -1,4 +1,4 @@
-#!/bin/zsh
+#!/usr/bin/env bash
 # Swap the Ghostty app icon.
 # Usage: ./apply-icon.sh Mono.png     (or Window.png / Hazard.png, or a path to any 1024px PNG)
 #   macOS: Ghostty's native macos-custom-icon (written to platform.conf).
@@ -6,7 +6,7 @@
 set -e
 
 NAME="${1:-Mono.png}"
-HERE="${0:A:h}"
+HERE="$(cd "$(dirname "$0")" && pwd)"
 if [[ -f "$NAME" ]]; then
   SRC="$NAME"
 elif [[ -f "$HERE/icons/$NAME" ]]; then
@@ -54,8 +54,10 @@ apply_linux() {
   local apps="${XDG_DATA_HOME:-$HOME/.local/share}/applications"
   local icon="$GC/icon.png"
   local src="" d f
+  local -a dirs
+  IFS=: read -ra dirs <<< "${XDG_DATA_DIRS:-/usr/local/share:/usr/share}"
   # Find the launcher the Ghostty package installed (apt/source or snap).
-  for d in ${(s.:.)${XDG_DATA_DIRS:-/usr/local/share:/usr/share}} /var/lib/snapd/desktop; do
+  for d in "${dirs[@]}" /var/lib/snapd/desktop; do
     for f in com.mitchellh.ghostty.desktop ghostty_ghostty.desktop; do
       [[ -f "$d/applications/$f" ]] && { src="$d/applications/$f"; break 2; }
     done
@@ -63,7 +65,7 @@ apply_linux() {
 
   # A same-named file in ~/.local/share/applications shadows the system one,
   # so the app grid / dock show one Ghostty entry — with our icon.
-  local dest="$apps/${src:t}"
+  local dest="$apps/${src##*/}"
   [[ -n "$src" ]] || dest="$apps/com.mitchellh.ghostty.desktop"
   mkdir -p "$apps"
 

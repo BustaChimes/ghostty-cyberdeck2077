@@ -1,4 +1,4 @@
-#!/bin/zsh
+#!/usr/bin/env bash
 # ghostty-cyberpunk uninstaller — reverses install.sh.
 # Restores the .pre-cyberpunk backups install.sh made (or removes files it
 # installed fresh), and strips ONLY the ~/.zshrc lines the installer added.
@@ -51,7 +51,7 @@ else
   if [[ -n "$DESKTOP_FILE" && -f "$DESKTOP_FILE" ]] && grep -q '^# GHOST//DECK icon override' "$DESKTOP_FILE"; then
     rm -f "$DESKTOP_FILE"
     echo "   removed $DESKTOP_FILE"
-    command -v update-desktop-database >/dev/null && update-desktop-database "${DESKTOP_FILE:h}" 2>/dev/null || true
+    command -v update-desktop-database >/dev/null && update-desktop-database "$(dirname "$DESKTOP_FILE")" 2>/dev/null || true
   fi
   # Fonts/Ghostty/Starship stay installed (other things may use them).
 fi

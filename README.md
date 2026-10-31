@@ -62,7 +62,7 @@ Minimum spec to run this ICE:
   - [Ghostty](https://ghostty.org)
   - FiraCode Nerd Font
   - [Starship](https://starship.rs)
-- zsh (the macOS default — you already have it)
+- zsh for your shell (the macOS default — you already have it)
 - Optional chrome: `eza` for the full ls color treatment
 
 **Linux** (Ubuntu / Debian, GNOME or KDE desktop)
@@ -71,7 +71,7 @@ Minimum spec to run this ICE:
   - [Ghostty](https://ghostty.org) — `apt install ghostty` on Ubuntu 26.04+ (distro package), otherwise the [Snap Store package](https://snapcraft.io/ghostty) (`snap install ghostty --classic`; snapd ships with Ubuntu)
   - FiraCode Nerd Font — official [Nerd Fonts](https://github.com/ryanoasis/nerd-fonts) release, installed per-user into `~/.local/share/fonts` and registered with fontconfig
   - [Starship](https://starship.rs) — from apt if your release packages it, otherwise the official installer (into `/usr/local/bin`)
-- zsh as your login shell — the installer offers to `chsh` for you
+- zsh — the installer `apt install`s it and offers to `chsh` you to it (the scripts themselves are plain bash, so a fresh box needs nothing but `git`)
 - Optional chrome: `eza` (`sudo apt install eza` on Ubuntu 24.04+)
 
 ## ▓▓ 04 // JACK IN ▓▓
@@ -89,7 +89,7 @@ cd ghostty-cyberdeck2077
 **Linux (Ubuntu / Debian)** — one line, safe to re-run (it pulls if the clone is already there):
 
 ```sh
-sudo apt-get update && sudo apt-get install -y git zsh && { git -C ~/ghostty-cyberdeck2077 pull --ff-only 2>/dev/null || git clone https://github.com/BustaChimes/ghostty-cyberdeck2077.git ~/ghostty-cyberdeck2077; } && ~/ghostty-cyberdeck2077/install.sh
+sudo apt-get update && sudo apt-get install -y git && { git -C ~/ghostty-cyberdeck2077 pull --ff-only 2>/dev/null || git clone https://github.com/BustaChimes/ghostty-cyberdeck2077.git ~/ghostty-cyberdeck2077; } && ~/ghostty-cyberdeck2077/install.sh
 ```
 
 The installer detects the OS (`uname`), checks dependencies, copies everything into `~/.config/ghostty/` and `~/.config/starship.toml`, adds three guarded lines to your `~/.zshrc`, and applies the icon. It is **idempotent** — safe to re-run — and any config it overwrites is backed up first as `<file>.pre-cyberpunk`.

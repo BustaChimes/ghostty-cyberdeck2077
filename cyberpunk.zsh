@@ -93,8 +93,49 @@ cprun() {
   return $code
 }
 
-# ---- ssh TERM fix ----
+# ---- tab titles ----
+# Each tab says what it is, short enough to survive a crowded tab bar:
+#   nomad // ~/Code/app       at the prompt (host // short dir)
+#   ▶ make -j8                  while a command runs
+#   ⇄ relay                     during ssh (set here, so it holds even if the
+#                               remote shell never sets a title)
+# Needs `shell-integration-features = no-title` in the Ghostty config (set in
+# this repo's config) so Ghostty's own title hook doesn't overwrite these.
+_cp_title() { printf '\e]2;%s\a' "${1//[[:cntrl:]]/ }" }
+if [[ -o interactive && $TERM_PROGRAM == ghostty ]]; then
+  autoload -Uz add-zsh-hook
+  _cp_title_precmd()  { _cp_title "${HOST%%.*} // ${(%):-%(4~|…/%2~|%~)}" }
+  _cp_title_preexec() { local c=${1//[[:cntrl:]]/ }; _cp_title "▶ ${c[1,40]}" }
+  add-zsh-hook precmd _cp_title_precmd
+  add-zsh-hook preexec _cp_title_preexec
+fi
+
+# ---- ssh: TERM fix + tab title ----
 # Remote hosts usually lack the xterm-ghostty terminfo ("unknown terminal type").
 # Advertise a universal TERM to the remote only; local TERM stays xterm-ghostty
 # (the inline assignment scopes TERM to this one ssh invocation).
-ssh() { TERM=xterm-256color command ssh "$@" }
+# The tab is titled with the destination before connecting; the next prompt
+# restores the local title when the session ends.
+ssh() {
+  emulate -L zsh
+  local a host skip=0
+  for a in "$@"; do
+    if (( skip )); then skip=0; continue; fi
+    case $a in
+      -[bcDEeFIiJLlmOopQRSWw]) skip=1 ;;
+      -*) ;;
+      *) host=$a; break ;;
+    esac
+  done
+  if [[ -n $host && -t 1 && $TERM_PROGRAM == ghostty ]]; then
+    host=${host#ssh://}; host=${host##*@}; host=${host%%:*}
+    [[ $host == *[a-zA-Z]* ]] && host=${host%%.*}
+    _cp_title "⇄ $host"
+  fi
+  TERM=xterm-256color command ssh "$@"
+}
+
+# ---- local extras ----
+# Machine-specific additions that don't belong in this repo go in
+# ~/.config/ghostty/local.zsh (never overwritten by install.sh).
+[[ -r ~/.config/ghostty/local.zsh ]] && source ~/.config/ghostty/local.zsh

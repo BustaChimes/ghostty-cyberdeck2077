@@ -50,7 +50,8 @@ Every new window opens with a randomized banner that decodes itself out of stati
 - **Starship prompt** — yellow → cyan powerline segments with path and git status, a magenta clock pinned hard to the right edge, and a `▶` cursor that flips red when the last command flatlined.
 - **Themed `ls` colors** — dirs yellow, executables green, media magenta, archives red, docs blue. Uses [eza](https://github.com/eza-community/eza) if you have it, degrades cleanly to stock `ls` (macOS or GNU) if you don't.
 - **ssh that just works** — remote hosts don't know Ghostty's terminfo and will whine about it. A tiny wrapper sends `TERM=xterm-256color` to remotes only; your local TERM stays untouched.
-- **The nameplate** — the window titles itself `GHOST//DECK`, and the Dock / launcher icon is swapped for one of three original icons (Mono / Window / Hazard). No stock branding — your deck flies its own colors.
+- **Tabs that say where you are** — every tab names itself: `nomad // ~/Code/app` at the prompt, `▶ make -j8` while a command runs, `⇄ relay` while you're jacked into another box over ssh (set locally, so it holds even when the remote shell never sets a title). No more row of identical tabs. Machine-specific extras go in `~/.config/ghostty/local.zsh`, which the installer never touches.
+- **The nameplate** — the Dock / launcher icon is swapped for one of three original icons (Mono / Window / Hazard). No stock branding — your deck flies its own colors.
 
 ## ▓▓ 03 // RIG REQUIREMENTS ▓▓
 

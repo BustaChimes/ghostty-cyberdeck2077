@@ -99,9 +99,15 @@ cprun() {
 #   ▶ make -j8                  while a command runs
 #   ⇄ relay                     during ssh (set here, so it holds even if the
 #                               remote shell never sets a title)
+# Every title ends with a brand tag. Ghostty has no separate window title (the
+# top of the window always mirrors the focused tab), so the tag is what keeps
+# GHOST//DECK up there; it sits at the end so tabs that get squeezed lose the
+# tag, not the part that tells them apart. Set CP_TITLE_BRAND in local.zsh to
+# change it, or to '' to drop it.
 # Needs `shell-integration-features = no-title` in the Ghostty config (set in
 # this repo's config) so Ghostty's own title hook doesn't overwrite these.
-_cp_title() { printf '\e]2;%s\a' "${1//[[:cntrl:]]/ }" }
+: ${CP_TITLE_BRAND=GHOST//DECK}
+_cp_title() { printf '\e]2;%s\a' "${1//[[:cntrl:]]/ }${CP_TITLE_BRAND:+  ◢ $CP_TITLE_BRAND}" }
 if [[ -o interactive && $TERM_PROGRAM == ghostty ]]; then
   autoload -Uz add-zsh-hook
   _cp_title_precmd()  { _cp_title "${HOST%%.*} // ${(%):-%(4~|…/%2~|%~)}" }

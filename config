@@ -38,7 +38,8 @@ background-blur = 20
 window-padding-x = 14
 window-padding-y = 10
 window-theme = dark
-title = GHOST//DECK
+# No fixed `title`: each tab names itself (host // dir, running command, ssh
+# target). cyberpunk.zsh sets those, so Ghostty's own title hook is turned off.
 
 # ---------- Shader ----------
 custom-shader = ~/.config/ghostty/shaders/cyberpunk.glsl
@@ -47,6 +48,7 @@ custom-shader-animation = true
 # ---------- Behavior ----------
 mouse-hide-while-typing = true
 shell-integration = zsh
+shell-integration-features = no-title
 
 # ---------- Platform ----------
 # OS-specific settings (macOS titlebar + app icon, or Linux keybinds) live in
